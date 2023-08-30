@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_study/common/common.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class BaseUIDetailPage extends StatelessWidget {
   final String title;
@@ -29,6 +30,8 @@ Widget buildWidgetPageWithTag(String title) {
       return const ChooseUIPage();
     case '输入框及表单':
       return const InputAndFormUIPage();
+    case '进度指示器':
+      return const IndicatorUIPage();
     default:
       return const TextUIPage();
   }
@@ -50,12 +53,16 @@ class TextUIPage extends StatelessWidget {
               child: ListTile(
                 title: Text(
                   'Text',
-                  style: titleStyle(),
+                  style: titleColorStyle(Colors.blue),
                 ),
                 subtitle: Text(
                   '用于显示简单样式文本，它包含一些控制文本显示样式的一些属性',
                   style: subTitleStyle(),
                 ),
+                onTap: () {
+                  launchUrl(Uri.parse(
+                      'https://book.flutterchina.club/chapter3/text.html'));
+                },
               ),
             ),
             Expanded(
@@ -259,8 +266,12 @@ class ButtonUIPage extends StatelessWidget {
               ListTile(
                 title: Text(
                   'ElevatedButton',
-                  style: titleStyle(),
+                  style: titleColorStyle(Colors.blue),
                 ),
+                onTap: () {
+                  launchUrl(Uri.parse(
+                      'https://book.flutterchina.club/chapter3/buttons.html#_3-2-1-elevatedbutton'));
+                },
               ),
               ElevatedButton(
                 onPressed: () {},
@@ -345,19 +356,23 @@ class ImageUIPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      child: Container(
+      child: SizedBox(
         child: IntrinsicHeight(
           child: Column(
             children: [
               ListTile(
                 title: Text(
                   'ImageProvider:',
-                  style: titleStyle(),
+                  style: titleColorStyle(Colors.blue),
                 ),
                 subtitle: Text(
                   '一个抽象类，主要定义了图片数据获取的接口load()，从不同的数据源获取图片需要实现不同的ImageProvider ，如AssetImage是实现了从Asset中加载图片的 ImageProvider，而NetworkImage 实现了从网络加载图片的 ImageProvider',
                   style: subTitleStyle(),
                 ),
+                onTap: () {
+                  launchUrl(Uri.parse(
+                      'https://book.flutterchina.club/chapter3/img_and_icon.html#_3-3-1-%E5%9B%BE%E7%89%87'));
+                },
               ),
               ListTile(
                 title: Text(
@@ -633,11 +648,27 @@ class _ChooseUIPageState extends State<ChooseUIPage> {
                 ),
               ),
             ),
-            ListTile(
-              title: Text(
-                'switch',
-                style: titleStyle(),
-              ),
+            Row(
+              children: [
+                SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.5,
+                  child: ListTile(
+                    title: Text(
+                      'switch',
+                      style: titleStyle(),
+                    ),
+                  ),
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    launchUrl(
+                      Uri.parse(
+                          'https://book.flutterchina.club/chapter3/radio_and_checkbox.html'),
+                    );
+                  },
+                  child: const Text('点击查看详情'),
+                ),
+              ],
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -717,10 +748,30 @@ class _InputAndFormUIPageState extends State<InputAndFormUIPage> {
   Widget build(BuildContext context) {
     return ListView(
       children: [
-        ListTile(
-          title: Text(
-            'TextField',
-            style: titleStyle(),
+        Expanded(
+          child: Row(
+            children: [
+              SizedBox(
+                width: 200,
+                child: ListTile(
+                  title: Text(
+                    'TextField',
+                    style: titleColorStyle(Colors.blue),
+                  ),
+                  onTap: () {
+                    launchUrl(Uri.parse(
+                        'https://book.flutterchina.club/chapter3/input_and_form.html#_3-5-1-textfield'));
+                  },
+                ),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  launchUrl(Uri.parse(
+                      'https://book.flutterchina.club/chapter3/input_and_form.html#_3-5-1-textfield'));
+                },
+                child: const Text('点击查看详情'),
+              ),
+            ],
           ),
         ),
         ListTile(
@@ -839,10 +890,330 @@ class _InputAndFormUIPageState extends State<InputAndFormUIPage> {
             Fluttertoast.showToast(msg: '输入的用户名是：${_unameController.text}');
           },
         ),
+        const Divider(height: 20),
         ListTile(
           title: Text(
+            '获取输入内容',
+            style: titleStyle(),
+          ),
+          subtitle: Text(
             '获取Textfield里面的值，可以通过onChange方法，也可以通过传递Controller的方法：controller.text',
             style: subTitleStyle(),
+          ),
+        ),
+        const Divider(height: 20),
+        ListTile(
+          title: Text(
+            '监听文本变化',
+            style: titleStyle(),
+          ),
+          subtitle: Text(
+            '1：设置onChange回调\nonChanged: (v) {print("onChange: 具体内容");}\n2：通过controller监听\nvoid initState() {_controller.addListener((){print(_unameController.text);});}',
+            style: subTitleStyle(),
+          ),
+        ),
+        const Divider(height: 20),
+        ListTile(
+          title: Text(
+            '控制焦点',
+            style: titleStyle(),
+          ),
+          subtitle: Text(
+            '焦点可以通过FocusNode和FocusScopeNode来控制，默认情况下，焦点由FocusScope来管理，它代表焦点控制范围，可以在这个范围内可以通过FocusScopeNode在输入框之间移动焦点、设置默认焦点等。我们可以通过FocusScope.of(context) 来获取Widget树中默认的FocusScopeNode',
+            style: subTitleStyle(),
+          ),
+        ),
+        const Divider(height: 20),
+        ListTile(
+          title: Text(
+            '监听焦点状态改变事件',
+            style: titleStyle(),
+          ),
+          subtitle: Text(
+            'FocusNode继承自ChangeNotifier，通过FocusNode可以监听焦点的改变事件',
+            style: subTitleStyle(),
+          ),
+        ),
+        const Divider(height: 20),
+        Expanded(
+          child: Row(
+            children: [
+              SizedBox(
+                width: MediaQuery.of(context).size.width * 0.5,
+                child: ListTile(
+                  title: Text(
+                    '表单Form',
+                    style: titleStyle(),
+                  ),
+                ),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  launchUrl(
+                    Uri.parse(
+                        'https://book.flutterchina.club/chapter3/input_and_form.html#_3-5-2-%E8%A1%A8%E5%8D%95form'),
+                  );
+                },
+                child: const Text('点击查看详情'),
+              ),
+            ],
+          ),
+        ),
+        const Divider(height: 20),
+        ListTile(
+          title: Text(
+            'Form',
+            style: titleStyle(),
+          ),
+        ),
+        ListTile(
+          title: Text.rich(
+            textSpanTitleAndSubTitle('autovalidate',
+                '是否自动校验输入内容；当为true时，每一个子 FormField 内容发生变化时都会自动校验合法性，并直接显示错误信息。否则，需要通过调用FormState.validate()来手动校验'),
+          ),
+        ),
+        ListTile(
+          title: Text.rich(
+            textSpanTitleAndSubTitle('onWillPop',
+                '决定Form所在的路由是否可以直接返回（如点击返回按钮），该回调返回一个Future对象，如果 Future 的最终结果是false，则当前路由不会返回；如果为true，则会返回到上一个路由。此属性通常用于拦截返回按钮'),
+          ),
+        ),
+        ListTile(
+          title: Text.rich(
+            textSpanTitleAndSubTitle(
+                'onChanged', 'Form的任意一个子FormField内容发生变化时会触发此回调'),
+          ),
+        ),
+        const Divider(height: 20),
+        ListTile(
+          title: Text(
+            'FormField',
+            style: titleStyle(),
+          ),
+          subtitle: Text(
+            'Form的子孙元素必须是FormField类型，FormField是一个抽象类，定义几个属性，FormState内部通过它们来完成操作',
+            style: subTitleStyle(),
+          ),
+        ),
+        const Divider(height: 20),
+        ListTile(
+          title: Text(
+            'FormState',
+            style: titleStyle(),
+          ),
+          subtitle: Text(
+            'FormState为Form的State类，可以通过Form.of()或GlobalKey获得。我们可以通过它来对Form的子孙FormField进行统一操作。我们看看其常用的三个方法：',
+            style: subTitleStyle(),
+          ),
+        ),
+        ListTile(
+          title: Text.rich(
+            textSpanTitleAndSubTitle('FormState.validate()：',
+                '调用此方法后，会调用Form子孙FormField的validate回调，如果有一个校验失败，则返回false，所有校验失败项都会返回用户返回的错误提示'),
+          ),
+        ),
+        ListTile(
+          title: Text.rich(
+            textSpanTitleAndSubTitle('FormState.save()',
+                '调用此方法后，会调用Form子孙FormField的save回调，用于保存表单内容'),
+          ),
+        ),
+        ListTile(
+          title: Text.rich(
+            textSpanTitleAndSubTitle(
+                'FormState.reset()', '调用此方法后，会将子孙FormField的内容清空'),
+          ),
+        ),
+        const Divider(height: 40),
+        ListTile(
+          title: Text(
+            '示例',
+            style: titleStyle(),
+          ),
+          subtitle: Text(
+            '1、用户名不能为空，如果为空则提示“用户名不能为空”\n2、密码不能少于 6 位，如果小于 6 为则提示“密码不能少于 6 位”',
+            style: subTitleStyle(),
+          ),
+        ),
+        const Divider(height: 20),
+        const FormTestRoute(),
+      ],
+    );
+  }
+}
+
+class FormTestRoute extends StatefulWidget {
+  const FormTestRoute({super.key});
+
+  @override
+  State<FormTestRoute> createState() => _FormTestRouteState();
+}
+
+class _FormTestRouteState extends State<FormTestRoute> {
+  final TextEditingController _userNameController = TextEditingController();
+  final TextEditingController _pwdController = TextEditingController();
+  final GlobalKey _formKey = GlobalKey<FormState>();
+  @override
+  Widget build(BuildContext context) {
+    return Form(
+      key: _formKey, //设置globalKey，用于后面获取FormState
+      autovalidateMode:
+          AutovalidateMode.onUserInteraction, //表单字段将在用户与其进行交互时自动进行验证
+      child: Column(
+        children: <Widget>[
+          TextFormField(
+            autofocus: false, //是否自动获取焦点
+            controller: _userNameController,
+            decoration: const InputDecoration(
+              labelText: '用户名',
+              hintText: '请输入用户名或邮箱',
+              icon: Icon(Icons.person),
+            ),
+            validator: (value) {
+              return value!.trim().isNotEmpty ? null : "用户名不能为空";
+            },
+          ),
+          TextFormField(
+            controller: _pwdController,
+            decoration: const InputDecoration(
+              labelText: '密码',
+              hintText: '您的登录密码',
+              icon: Icon(Icons.lock),
+            ),
+            obscureText: true, //将文本内容隐藏
+            validator: (v) {
+              return v!.trim().length > 5 ? null : '密码不能少于6位';
+            },
+          ),
+          // 登录按钮
+          Padding(
+            padding: const EdgeInsets.only(top: 28),
+            child: Row(children: [
+              Expanded(
+                child: ElevatedButton(
+                  onPressed: () {
+                    // 通过_formKey.currentState 获取FormState后，
+                    // 调用validate()方法校验用户名密码是否合法，校验
+                    // 通过后再提交数据。
+                    if ((_formKey.currentState as FormState).validate()) {
+                      //验证通过提交数据
+                      Fluttertoast.showToast(
+                        msg: '数据校验通过，进入登陆页面',
+                        toastLength: Toast.LENGTH_SHORT,
+                        gravity: ToastGravity.CENTER,
+                        timeInSecForIosWeb: 5,
+                        backgroundColor: Colors.black,
+                        textColor: Colors.white,
+                      );
+                    }
+                  },
+                  child: const Padding(
+                    padding: EdgeInsets.all(16),
+                    child: Text('登陆'),
+                  ),
+                ),
+              ),
+            ]),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class IndicatorUIPage extends StatefulWidget {
+  const IndicatorUIPage({super.key});
+
+  @override
+  State<IndicatorUIPage> createState() => _IndicatorUIPageState();
+}
+
+/*
+  进度指示器
+*/
+class _IndicatorUIPageState extends State<IndicatorUIPage> {
+  @override
+  Widget build(BuildContext context) {
+    return ListView(
+      children: [
+        ListTile(
+          title: Text(
+            '进度指示器',
+            style: titleColorStyle(Colors.blue),
+          ),
+          subtitle: Text(
+            'Material 组件库中提供了两种进度指示器：LinearProgressIndicator和CircularProgressIndicator，它们都可以同时用于精确的进度指示和模糊的进度指示。精确进度通常用于任务进度可以计算和预估的情况，比如文件下载；而模糊进度则用户任务进度无法准确获得的情况，如下拉刷新，数据提交等',
+            style: subTitleStyle(),
+          ),
+          onTap: () {
+            launchUrl(
+              Uri.parse(
+                  'https://book.flutterchina.club/chapter3/progress.html#_3-6-1-linearprogressindicator'),
+            );
+          },
+        ),
+        const Divider(height: 20),
+        ListTile(
+          title: Text(
+            'LinearProgressIndicator',
+            style: titleStyle(),
+          ),
+          subtitle: Text(
+            'LinearProgressIndicator是一个线性、条状的进度条',
+            style: subTitleStyle(),
+          ),
+        ),
+        ListTile(
+          title: Text(
+            '进度条显示50%',
+            style: subTitleStyle(),
+          ),
+        ),
+        LinearProgressIndicator(
+          backgroundColor: Colors.grey[200],
+          valueColor: const AlwaysStoppedAnimation(Colors.blue),
+          value: .6,
+        ),
+        ListTile(
+          title: Text.rich(
+            textSpanTitleAndSubTitle('value',
+                '表示当前的进度，取值范围为[0,1],如果value为null时则指示器会执行一个循环动画（模糊进度）；当value不为null时，指示器为一个具体进度的进度条'),
+          ),
+        ),
+        ListTile(
+          title: Text.rich(
+            textSpanTitleAndSubTitle('backgroundColor', '指示器的背景色'),
+          ),
+        ),
+        ListTile(
+          title: Text.rich(
+            textSpanTitleAndSubTitle('valueColor',
+                '指示器的进度条颜色；值得注意的是，该值类型是Animation<Color>，这允许我们对进度条的颜色也可以指定动画。如果我们不需要对进度条颜色执行动画，换言之，我们想对进度条应用一种固定的颜色，此时我们可以通过AlwaysStoppedAnimation来指定'),
+          ),
+        ),
+        const Divider(height: 20),
+        ListTile(
+          title: Text(
+            'CircularProgressIndicator',
+            style: titleStyle(),
+          ),
+          subtitle: Text(
+            '是一个圆形进度条',
+            style: subTitleStyle(),
+          ),
+        ),
+        ListTile(
+          title: Text(
+            '不设置进度条',
+            style: subTitleStyle(),
+          ),
+        ),
+        Container(
+          width: 80,
+          height: 80,
+          child: CircularProgressIndicator(
+            backgroundColor: Colors.grey[200],
+            valueColor: const AlwaysStoppedAnimation(Colors.blue),
           ),
         ),
       ],

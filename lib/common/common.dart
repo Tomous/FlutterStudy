@@ -1,5 +1,13 @@
 import 'package:flutter/material.dart';
 
+TextStyle titleColorStyle(Color color) {
+  return TextStyle(
+    fontSize: 25,
+    fontWeight: FontWeight.bold,
+    color: color,
+  );
+}
+
 TextStyle titleStyle() {
   return const TextStyle(
     fontSize: 25,
