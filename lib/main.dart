@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_study/goodHouseApp/pages/login.dart';
 import 'package:flutter_study/pages/base_ui.dart';
 import 'package:flutter_study/pages/container.dart';
 import 'package:flutter_study/pages/event_handling.dart';
@@ -44,6 +45,7 @@ class _MyAppState extends State<MyApp> {
     Text('ListView', style: optionStyle),
     Text('GridView', style: optionStyle),
     Text('Drawer', style: optionStyle),
+    Text('好客房APP', style: optionStyle),
   ];
   //对应的跳转页面
   static const List<Widget> _pageList = <Widget>[
@@ -63,6 +65,7 @@ class _MyAppState extends State<MyApp> {
     DrawerPage(
       title: 'Drawer',
     ),
+    LoginPage(),
   ];
 
 //点击ListTile的时候把当前行号赋值给选中的行号
@@ -77,7 +80,9 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       title: 'homedddd',
       home: Scaffold(
-        appBar: AppBar(title: const Text('Home')),
+        appBar: AppBar(
+          title: const Text('Home'),
+        ),
         body: ListView.builder(
           itemCount: _itemTitleList.length,
           itemBuilder: (context, index) {

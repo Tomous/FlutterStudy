@@ -39,6 +39,7 @@ dependencies:
   fluttertoast: ^8.2.2 #弹框Toast
   # flutter_inappwebview: ^5.7.2+3 #打开web页面
   url_launcher: 6.1.11 #加载url
+  fluro: ^2.0.5 #路由
 
 dev_dependencies:
   flutter_test:
