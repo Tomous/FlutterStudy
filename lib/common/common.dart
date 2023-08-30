@@ -41,3 +41,18 @@ TextSpan textSpanTitleAndSubTitle(String title, String subTitle) {
     ],
   );
 }
+
+ListTile dcListTitleAndSubTitle(
+    String title, String subTitle, bool canClick, Function()? onClick) {
+  return ListTile(
+    title: Text(
+      title,
+      style: canClick ? titleColorStyle(Colors.blue) : titleStyle(),
+    ),
+    subtitle: Text(
+      subTitle,
+      style: subTitleStyle(),
+    ),
+    onTap: onClick,
+  );
+}

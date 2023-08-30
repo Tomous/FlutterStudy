@@ -153,4 +153,160 @@ List _generateItems = [
       },
     ],
   },
+  {
+    "headerValue": '滚动监听及控制',
+    'isExpanded': false,
+    'contentList': [
+      {
+        'title': 'ScrollController',
+        'page': const VariableDetailPage(title: 'ScrollController'),
+      },
+      {
+        'title': '滚动监听',
+        'page': const VariableDetailPage(title: '滚动监听'),
+      },
+    ],
+  },
+  {
+    "headerValue": 'AnimatedList',
+    'isExpanded': false,
+    'contentList': [
+      {
+        'title': 'AnimatedList',
+        'page': const VariableDetailPage(title: 'AnimatedList'),
+      },
+    ],
+  },
+  {
+    "headerValue": 'GridView',
+    'isExpanded': false,
+    'contentList': [
+      {
+        'title': '默认构造函数',
+        'page': const VariableDetailPage(title: '默认构造函数'),
+      },
+      {
+        'title': 'GridView.count',
+        'page': const VariableDetailPage(title: 'GridView.count'),
+      },
+      {
+        'title': 'GridView.extent',
+        'page': const VariableDetailPage(title: 'GridView.extent'),
+      },
+      {
+        'title': 'GridView.builder',
+        'page': const VariableDetailPage(title: 'GridView.builder'),
+      },
+    ],
+  },
+  {
+    "headerValue": 'AnimatedList',
+    'isExpanded': false,
+    'contentList': [
+      {
+        'title': 'AnimatedList',
+        'page': const VariableDetailPage(title: 'AnimatedList'),
+      },
+    ],
+  },
+  {
+    "headerValue": 'PageView与页面缓存',
+    'isExpanded': false,
+    'contentList': [
+      {
+        'title': 'PageView',
+        'page': const VariableDetailPage(title: 'PageView'),
+      },
+      {
+        'title': '页面缓存',
+        'page': const VariableDetailPage(title: '页面缓存'),
+      },
+    ],
+  },
+  {
+    "headerValue": '可滚动组件子项缓存',
+    'isExpanded': false,
+    'contentList': [
+      {
+        'title': 'AutomaticKeepAlive',
+        'page': const VariableDetailPage(title: 'AutomaticKeepAlive'),
+      },
+      {
+        'title': 'KeepAliveWrapper',
+        'page': const VariableDetailPage(title: 'KeepAliveWrapper'),
+      },
+    ],
+  },
+  {
+    "headerValue": 'TabBarView',
+    'isExpanded': false,
+    'contentList': [
+      {
+        'title': 'TabBarView',
+        'page': const VariableDetailPage(title: 'TabBarView'),
+      },
+      {
+        'title': 'TabBar',
+        'page': const VariableDetailPage(title: 'TabBar'),
+      },
+      {
+        'title': '实例',
+        'page': const VariableDetailPage(title: '实例'),
+      },
+    ],
+  },
+  {
+    "headerValue": 'CustomScrollView 和 Slivers',
+    'isExpanded': false,
+    'contentList': [
+      {
+        'title': 'CustomScrollView',
+        'page': const VariableDetailPage(title: 'CustomScrollView'),
+      },
+      {
+        'title': 'Flutter 中常用的 Sliver',
+        'page': const VariableDetailPage(title: 'Flutter 中常用的 Sliver'),
+      },
+    ],
+  },
+  {
+    "headerValue": '自定义 Sliver',
+    'isExpanded': false,
+    'contentList': [
+      {
+        'title': 'Sliver 布局协议',
+        'page': const VariableDetailPage(title: 'Sliver 布局协议'),
+      },
+      {
+        'title': 'SliverFlexibleHeader',
+        'page': const VariableDetailPage(title: 'SliverFlexibleHeader'),
+      },
+      {
+        'title': 'SliverPersistentHeaderToBox',
+        'page': const VariableDetailPage(title: 'SliverPersistentHeaderToBox'),
+      },
+    ],
+  },
+  {
+    "headerValue": '嵌套可滚动组件 NestedScrollView',
+    'isExpanded': false,
+    'contentList': [
+      {
+        'title': 'NestedScrollView',
+        'page': const VariableDetailPage(title: 'NestedScrollView'),
+      },
+      {
+        'title': 'NestedScrollView 原理',
+        'page': const VariableDetailPage(title: 'NestedScrollView 原理'),
+      },
+      {
+        'title': 'SliverAppBar',
+        'page': const VariableDetailPage(title: 'SliverAppBar'),
+      },
+      {
+        'title': '嵌套 TabBarView',
+        'page': const VariableDetailPage(title: '嵌套 TabBarView'),
+      },
+    ],
+  },
 ];

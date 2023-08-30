@@ -1169,10 +1169,16 @@ class _IndicatorUIPageState extends State<IndicatorUIPage> {
             style: subTitleStyle(),
           ),
         ),
-        LinearProgressIndicator(
-          backgroundColor: Colors.grey[200],
-          valueColor: const AlwaysStoppedAnimation(Colors.blue),
-          value: .6,
+        UnconstrainedBox(
+          child: SizedBox(
+            height: 3,
+            width: MediaQuery.of(context).size.width * .7,
+            child: LinearProgressIndicator(
+              backgroundColor: Colors.grey[200],
+              valueColor: const AlwaysStoppedAnimation(Colors.blue),
+              value: .6,
+            ),
+          ),
         ),
         ListTile(
           title: Text.rich(
@@ -1208,12 +1214,14 @@ class _IndicatorUIPageState extends State<IndicatorUIPage> {
             style: subTitleStyle(),
           ),
         ),
-        Container(
-          width: 80,
-          height: 80,
-          child: CircularProgressIndicator(
-            backgroundColor: Colors.grey[200],
-            valueColor: const AlwaysStoppedAnimation(Colors.blue),
+        UnconstrainedBox(
+          child: SizedBox(
+            height: 60,
+            width: 60,
+            child: CircularProgressIndicator(
+              backgroundColor: Colors.grey[200],
+              valueColor: const AlwaysStoppedAnimation(Colors.blue),
+            ),
           ),
         ),
       ],

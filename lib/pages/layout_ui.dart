@@ -86,10 +86,6 @@ List _generateItems = [
         'page': const LayoutUIDetailPage(title: 'ConstrainedBox'),
       },
       {
-        'title': 'BoxConstraints',
-        'page': const LayoutUIDetailPage(title: 'BoxConstraints'),
-      },
-      {
         'title': 'SizedBox',
         'page': const LayoutUIDetailPage(title: 'SizedBox'),
       },
@@ -199,7 +195,7 @@ List _generateItems = [
       },
       {
         'title': 'Flutter 的 build 和 layout',
-        'page': const LayoutUIDetailPage(title: 'Flutter 的 build 和 layout'),
+        'page': const LayoutUIDetailPage(title: 'build和layout'),
       },
     ],
   },
