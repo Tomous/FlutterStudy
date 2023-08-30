@@ -839,6 +839,12 @@ class _InputAndFormUIPageState extends State<InputAndFormUIPage> {
             Fluttertoast.showToast(msg: '输入的用户名是：${_unameController.text}');
           },
         ),
+        ListTile(
+          title: Text(
+            '获取Textfield里面的值，可以通过onChange方法，也可以通过传递Controller的方法：controller.text',
+            style: subTitleStyle(),
+          ),
+        ),
       ],
     );
   }
