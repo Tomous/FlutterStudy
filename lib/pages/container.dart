@@ -7,6 +7,10 @@ class ContainerPage extends StatelessWidget {
 
   static const List _itemList = [
     {
+      'title': '页面骨架（Scaffold）',
+      'page': ContainerDetailPage(title: 'Scaffold'),
+    },
+    {
       "title": '填充（Padding）',
       'page': ContainerDetailPage(title: 'Padding'),
     },
@@ -29,10 +33,6 @@ class ContainerPage extends StatelessWidget {
     {
       "title": '空间适配（FittedBox）',
       'page': ContainerDetailPage(title: 'FittedBox'),
-    },
-    {
-      'title': '页面骨架（Scaffold）',
-      'page': ContainerDetailPage(title: 'Scaffold'),
     }
   ];
   @override

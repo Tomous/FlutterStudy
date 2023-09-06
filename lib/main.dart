@@ -11,7 +11,6 @@ import 'package:flutter_study/pages/materialApp_page.dart';
 import 'package:flutter_study/pages/column_row_page.dart';
 import 'package:flutter_study/pages/un_material_app_page.dart';
 import 'package:flutter_study/pages/variable.dart';
-import 'pages/drawer_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -44,7 +43,6 @@ class _MyAppState extends State<MyApp> {
     Text('Column and Row', style: optionStyle),
     Text('ListView', style: optionStyle),
     Text('GridView', style: optionStyle),
-    Text('Drawer', style: optionStyle),
     Text('好客房APP', style: optionStyle),
   ];
   //对应的跳转页面
@@ -62,9 +60,6 @@ class _MyAppState extends State<MyApp> {
       title: 'ListView',
     ),
     GridViewPage(title: 'GridView'),
-    DrawerPage(
-      title: 'Drawer',
-    ),
     LoginPage(),
   ];
 
