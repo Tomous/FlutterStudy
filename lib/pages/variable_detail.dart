@@ -45,6 +45,8 @@ Widget _buildWidgetWithTag(String title) {
       return ScrollViewUIPage();
     case '滚动监听':
       return ScrollViewUIPage(scrollOfSet: 2550.0);
+    case 'AnimatedList':
+      return const AnimatedListPage();
     default:
       return Container();
   }
@@ -647,6 +649,155 @@ class _ScrollNotificationPageState extends State<ScrollNotificationPage> {
           ),
         ),
       ),
+    );
+  }
+}
+
+/**
+ * AnimatedList
+ */
+class AnimatedListPage extends StatelessWidget {
+  const AnimatedListPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Column(
+        children: [
+          dcListTitleAndSubTitle(
+            'AnimatedList',
+            'AnimatedList 和 ListView 的功能大体相似，不同的是， AnimatedList 可以在列表中插入或删除节点时执行一个动画，在需要添加或删除列表项的场景中会提高用户体验\nAnimatedList 是一个 StatefulWidget，它对应的 State 类型为 AnimatedListState，添加和删除元素的方法位于 AnimatedListState 中\n\nvoid insertItem(int index, { Duration duration = _kDuration });\nvoid removeItem(int index, AnimatedListRemovedItemBuilder builder, { Duration duration = _kDuration }) ;',
+            true,
+            () => launchUrlString(
+              'https://book.flutterchina.club/chapter6/animatedlist.html',
+            ),
+          ),
+          const Divider(height: 30),
+          const Text(
+            '下面我们看一个示例：实现下面这样的一个列表，点击底部 + 按钮时向列表追加一个列表项；点击每个列表项后面的删除按钮时，删除该列表项，添加和删除时分别执行指定的动画',
+          ),
+          ElevatedButton(
+            onPressed: () => Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const AmimatedListDemo(),
+              ),
+            ),
+            child: const Text('点击查看实例'),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class AmimatedListDemo extends StatefulWidget {
+  const AmimatedListDemo({super.key});
+
+  @override
+  State<AmimatedListDemo> createState() => _AmimatedListDemoState();
+}
+
+class _AmimatedListDemoState extends State<AmimatedListDemo> {
+  var data = <String>[];
+  int counter = 5;
+  final globalKey = GlobalKey<AnimatedListState>();
+
+  @override
+  void initState() {
+    for (int i = 0; i < counter; i++) {
+      data.add('${i + 1}');
+    }
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('AnimatedList'),
+      ),
+      body: Stack(
+        children: [
+          AnimatedList(
+            key: globalKey,
+            initialItemCount: data.length,
+            itemBuilder: (
+              BuildContext context,
+              int index,
+              Animation<double> animation,
+            ) {
+              return FadeTransition(
+                opacity: animation,
+                child: buildItem(context, index),
+              );
+            },
+          ),
+          // 创建一个 “+” 按钮，点击后会向列表中插入一项
+          Positioned(
+            bottom: 30,
+            left: 0,
+            right: 0,
+            child: FloatingActionButton(
+              child: const Icon(Icons.add),
+              onPressed: () {
+                // 添加一个列表项
+                data.add('${++counter}');
+                // 告诉列表项有新添加的列表项
+                globalKey.currentState!.insertItem(data.length - 1);
+                print('添加 $counter');
+              },
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  // 构建列表项
+  Widget buildItem(context, index) {
+    String char = data[index];
+    return ListTile(
+      //数字不会重复，所以作为Key
+      key: ValueKey(char),
+      title: Text(char),
+      trailing: IconButton(
+        icon: const Icon(Icons.delete),
+        // 点击时删除
+        onPressed: () => onDelete(context, index),
+      ),
+    );
+  }
+
+  // 点击时删除
+  void onDelete(context, index) {
+    setState(
+      () {
+        globalKey.currentState!.removeItem(
+          index,
+          (context, animation) {
+            // 删除过程执行的是反向动画，animation.value 会从1变为0
+            var item = buildItem(context, index);
+            print('删除 ${data[index]}');
+            data.removeAt(index);
+            // 删除动画是一个合成动画：渐隐 + 收缩列表项
+            return FadeTransition(
+              opacity: CurvedAnimation(
+                parent: animation,
+                //让透明度变化的更快一些
+                curve: const Interval(0.5, 1.0),
+              ),
+              // 不断缩小列表项的高度
+              child: SizeTransition(
+                sizeFactor: animation,
+                axisAlignment: 0.0,
+                child: item,
+              ),
+            );
+          },
+          duration: const Duration(milliseconds: 300),
+        );
+      },
     );
   }
 }
