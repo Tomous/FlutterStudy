@@ -35,7 +35,8 @@ class _VariablePageState extends State<VariablePage> {
         _generateItems.length,
         (indexPage) {
           return ExpansionPanelRadio(
-            value: _generateItems[indexPage]['headerValue'],
+            canTapOnHeader: true,
+            value: _generateItems[indexPage],
             headerBuilder: (context, isExpanded) {
               return ListTile(
                 title: Text(
@@ -158,8 +159,8 @@ List _generateItems = [
     'isExpanded': false,
     'contentList': [
       {
-        'title': 'ScrollController',
-        'page': const VariableDetailPage(title: 'ScrollController'),
+        'title': '滚动监听及控制',
+        'page': const VariableDetailPage(title: '滚动监听及控制'),
       },
       {
         'title': '滚动监听',
@@ -196,16 +197,6 @@ List _generateItems = [
       {
         'title': 'GridView.builder',
         'page': const VariableDetailPage(title: 'GridView.builder'),
-      },
-    ],
-  },
-  {
-    "headerValue": 'AnimatedList',
-    'isExpanded': false,
-    'contentList': [
-      {
-        'title': 'AnimatedList',
-        'page': const VariableDetailPage(title: 'AnimatedList'),
       },
     ],
   },
