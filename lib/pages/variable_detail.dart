@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_study/common/common.dart';
+import 'package:flutter_study/pages/keep_alive_wrapper.dart';
 import 'package:flutter_study/pages/layout_log_print.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 class VariableDetailPage extends StatelessWidget {
@@ -47,6 +49,30 @@ Widget _buildWidgetWithTag(String title) {
       return ScrollViewUIPage(scrollOfSet: 2550.0);
     case 'AnimatedList':
       return const AnimatedListPage();
+    case '默认构造函数GridView':
+    case 'GridView.count':
+    case 'GridView.extent':
+    case 'GridView.builder':
+      return const GridViewUIPage();
+    case 'PageView':
+    case '页面缓存':
+      return const PageViewUIPage();
+    case 'AutomaticKeepAlive':
+    case 'KeepAliveWrapper':
+      return const SliverPageCache();
+    case 'TabBarView':
+    case 'TabBar':
+      return const TabBarViewPage();
+    case 'CustomScrollView':
+    case 'Flutter 中常用的 Sliver':
+      return const CustomScrollViewUIPage();
+    case 'Sliver 布局协议':
+    case 'SliverFlexibleHeader':
+    case 'SliverPersistentHeaderToBox':
+      return const SliverDemoPage();
+    case 'NestedScrollView':
+    case 'SliverAppBar':
+      return const NestedScrollViewPage();
     default:
       return Container();
   }
@@ -798,6 +824,791 @@ class _AmimatedListDemoState extends State<AmimatedListDemo> {
           duration: const Duration(milliseconds: 300),
         );
       },
+    );
+  }
+}
+
+/**
+ * GridView
+ */
+class GridViewUIPage extends StatefulWidget {
+  const GridViewUIPage({super.key});
+
+  @override
+  State<GridViewUIPage> createState() => _GridViewUIPageState();
+}
+
+class _GridViewUIPageState extends State<GridViewUIPage> {
+  @override
+  Widget build(BuildContext context) {
+    return ListView(
+      children: [
+        dcListTitleAndSubTitle(
+          'GridView',
+          'GridView可以构建一个二维网格列表,其默认构造函数定义如下\n1、gridDelegate：类型是SliverGridDelegate，它的作用是控制GridView子组件如何排列(layout)\n2、SliverGridDelegate是一个抽象类，定义了GridView Layout相关接口，子类需要通过实现它们来实现具体的布局算法\n',
+          true,
+          () => launchUrlString(
+            'https://book.flutterchina.club/chapter6/gridview.html#_6-6-1-%E9%BB%98%E8%AE%A4%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0',
+          ),
+        ),
+        ListTile(
+          title: Text(
+            'SliverGridDelegateWithFixedCrossAxisCount实现了一个横轴为固定数量子元素的layout算法',
+            style: titleStyle(),
+          ),
+          subtitle: Text(
+            '1、crossAxisCount：横轴子元素的数量。此属性值确定后子元素在横轴的长度就确定了，即ViewPort横轴长度除以crossAxisCount的商\n2、mainAxisSpacing：主轴方向的间距\n3、crossAxisSpacing：横轴方向子元素的间距\n4、childAspectRatio：子元素在横轴长度和主轴长度的比例。由于crossAxisCount指定后，子元素横轴长度就确定了，然后通过此参数值就可以确定子元素在主轴的长度',
+            style: subTitleStyle(),
+          ),
+        ),
+        Container(
+          color: Colors.red,
+          width: double.infinity,
+          height: 300.0,
+          child: GridView(
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              mainAxisSpacing: 10.0,
+              crossAxisSpacing: 10.0,
+              crossAxisCount: 3, //横轴三个子widget
+              childAspectRatio: 1.0, //宽高比为1时子widget
+            ),
+            children: [
+              Container(color: Colors.yellow),
+              Container(color: Colors.blue),
+              Container(color: Colors.orange),
+              Container(color: Colors.black),
+              Container(color: Colors.white),
+              Container(color: Colors.pink),
+              Container(color: const Color.fromARGB(255, 72, 70, 52)),
+              Container(color: const Color.fromARGB(255, 166, 165, 158)),
+              Container(color: const Color.fromARGB(255, 113, 33, 131)),
+            ],
+          ),
+        ),
+        ListTile(
+          title: Text(
+            'SliverGridDelegateWithMaxCrossAxisExtent\n该子类实现了一个横轴子元素为固定最大长度的layout算法',
+            style: titleStyle(),
+          ),
+          subtitle: Text(
+            '1、maxCrossAxisExtent：为子元素在横轴上的最大长度之所以是“最大”长度，是因为横轴方向每个子元素的长度仍然是等分的，举个例子，如果ViewPort的横轴长度是450，那么当maxCrossAxisExtent的值在区间[450/4，450/3)内的话，子元素最终实际长度都为112.5，而childAspectRatio所指的子元素横轴和主轴的长度比为最终的长度比',
+            style: subTitleStyle(),
+          ),
+        ),
+        Container(
+          color: Colors.red,
+          width: double.infinity,
+          height: 300.0,
+          child: GridView(
+            padding: EdgeInsets.zero,
+            gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+              maxCrossAxisExtent: 220.0,
+              childAspectRatio: 2.0, ////宽高比为2
+            ),
+            children: [
+              Container(color: Colors.yellow),
+              Container(color: Colors.blue),
+              Container(color: Colors.orange),
+              Container(color: Colors.black),
+              Container(color: Colors.white),
+              Container(color: Colors.pink),
+              Container(color: const Color.fromARGB(255, 72, 70, 52)),
+              Container(color: const Color.fromARGB(255, 166, 165, 158)),
+              Container(color: const Color.fromARGB(255, 113, 33, 131)),
+            ],
+          ),
+        ),
+        const Divider(height: 30),
+        dcListTitleAndSubTitle(
+          'GridView.count',
+          'GridView.count构造函数内部使用了SliverGridDelegateWithFixedCrossAxisCount，我们通过它可以快速的创建横轴固定数量子元素的GridView',
+          true,
+          () => launchUrlString(
+              'https://book.flutterchina.club/chapter6/gridview.html#_6-6-2-gridview-count'),
+        ),
+        const Divider(height: 30),
+        dcListTitleAndSubTitle(
+          'GridView.extent',
+          'GridView.extent构造函数内部使用了SliverGridDelegateWithMaxCrossAxisExtent，我们通过它可以快速的创建横轴子元素为固定最大长度的GridView',
+          true,
+          () => launchUrlString(
+              'https://book.flutterchina.club/chapter6/gridview.html#_6-6-3-gridview-extent'),
+        ),
+        const Divider(height: 30),
+        dcListTitleAndSubTitle(
+          'GridView.builder',
+          '上面我们介绍的GridView都需要一个widget数组作为其子元素，这些方式都会提前将所有子widget都构建好，所以只适用于子widget数量比较少时，当子widget比较多时，我们可以通过GridView.builder来动态创建子widget',
+          true,
+          () => launchUrlString(
+              'https://book.flutterchina.club/chapter6/gridview.html#_6-6-4-gridview-builder'),
+        ),
+        Center(
+          child: ElevatedButton(
+            child: const Text('动态获取数据'),
+            onPressed: () => Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const GridViewBuilderPage(),
+              ),
+            ),
+          ),
+        )
+      ],
+    );
+  }
+}
+
+class GridViewBuilderPage extends StatefulWidget {
+  const GridViewBuilderPage({super.key});
+
+  @override
+  State<GridViewBuilderPage> createState() => _GridViewBuilderPageState();
+}
+
+class _GridViewBuilderPageState extends State<GridViewBuilderPage> {
+  final List<IconData> _icons = []; //保存Icon数据
+  @override
+  void initState() {
+    super.initState();
+    // 初始化数据
+    _retrieveIcons();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('GridView.builder'),
+      ),
+      body: GridView.builder(
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 3, //每行三列
+          childAspectRatio: 1.0, //显示区域宽高相等
+        ),
+        itemCount: _icons.length,
+        itemBuilder: (context, index) {
+          //如果显示到最后一个并且Icon总数小于200时继续获取数据
+          if (index == _icons.length - 1 && _icons.length < 200) {
+            _retrieveIcons();
+          }
+          return Icon(
+            _icons[index],
+            color: Colors.red,
+          );
+        },
+      ),
+    );
+  }
+
+  //模拟异步获取数据
+  void _retrieveIcons() {
+    Future.delayed(
+      const Duration(
+        milliseconds: 300,
+      ),
+    ).then((value) {
+      setState(() {
+        _icons.addAll([
+          Icons.ac_unit,
+          Icons.airport_shuttle,
+          Icons.all_inclusive,
+          Icons.beach_access,
+          Icons.cake,
+          Icons.free_breakfast,
+        ]);
+      });
+    });
+  }
+}
+
+/**
+ * PageView与页面缓存
+ */
+class PageViewUIPage extends StatefulWidget {
+  const PageViewUIPage({super.key});
+
+  @override
+  State<PageViewUIPage> createState() => _PageViewUIPageState();
+}
+
+class _PageViewUIPageState extends State<PageViewUIPage> {
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        dcListTitleAndSubTitle(
+          'PageView',
+          '关于PageView的页面缓存请移步网页端查看',
+          true,
+          () {
+            launchUrlString(
+                'https://book.flutterchina.club/chapter6/pageview.html#_6-7-1-pageview');
+          },
+        ),
+        Center(
+          child: ElevatedButton(
+            child: const Text('PageView'),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const PageViewPage(),
+                ),
+              );
+            },
+          ),
+        )
+      ],
+    );
+  }
+}
+
+class PageViewPage extends StatefulWidget {
+  const PageViewPage({super.key});
+
+  @override
+  State<PageViewPage> createState() => _PageViewPageState();
+}
+
+class _PageViewPageState extends State<PageViewPage> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('PageView'),
+      ),
+      body: PageView(
+        allowImplicitScrolling: true,
+        children: List.generate(6, (index) {
+          return Center(
+            child: Text('第$index页'),
+          );
+        }),
+      ),
+    );
+  }
+}
+
+/**
+ * 可滚动组件子项缓存
+ */
+class SliverPageCache extends StatelessWidget {
+  const SliverPageCache({super.key});
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        dcListTitleAndSubTitle(
+          '可滚动组件子项缓存',
+          'addAutomaticKeepAlives:\n如果addAutomaticKeepAlives 为 true，则 ListView 会为每一个列表项添加一个 AutomaticKeepAlive 父组件',
+          true,
+          () {
+            launchUrlString(
+              'https://book.flutterchina.club/chapter6/keepalive.html#_6-8-2-keepalivewrapper',
+            );
+          },
+        ),
+        Center(
+          child: Column(
+            children: [
+              ElevatedButton(
+                onPressed: () {
+                  launchUrlString(
+                      'https://book.flutterchina.club/chapter6/keepalive.html#_6-8-1-automatickeepalive');
+                },
+                child: const Text('AutomaticKeepAlive'),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  launchUrlString(
+                      'https://book.flutterchina.club/chapter6/keepalive.html#_6-8-2-keepalivewrapper');
+                },
+                child: const Text('KeepAliveWrapper'),
+              )
+            ],
+          ),
+        )
+      ],
+    );
+  }
+}
+
+/**
+ * TabBarView
+ */
+class TabBarViewPage extends StatelessWidget {
+  const TabBarViewPage({super.key});
+  @override
+  Widget build(BuildContext context) {
+    return ListView(
+      children: [
+        dcListTitleAndSubTitle(
+          'TabBarView',
+          'TabBarView 是 Material 组件库中提供了 Tab 布局组件，通常和 TabBar 配合使用\nTabBarView 封装了 PageView，\nTabController 用于监听和控制 TabBarView 的页面切换，通常和 TabBar 联动。如果没有指定，则会在组件树中向上查找并使用最近的一个 DefaultTabController',
+          true,
+          () {
+            launchUrlString(
+                'https://book.flutterchina.club/chapter6/tabview.html#_6-9-1-tabbarview');
+          },
+        ),
+        dcListTitleAndSubTitle(
+          'TabBar',
+          'TabBar 为 TabBarView 的导航标题\nTabBar 通常位于 AppBar 的底部，它也可以接收一个 TabController ，如果需要和 TabBarView 联动， TabBar 和 TabBarView 使用同一个 TabController 即可，注意，联动时 TabBar 和 TabBarView 的孩子数量需要一致。如果没有指定 controller，则会在组件树中向上查找并使用最近的一个 DefaultTabController 。另外我们需要创建需要的 tab 并通过 tabs 传给 TabBar， tab 可以是任何 Widget，不过Material 组件库中已经实现了一个 Tab 组件，我们一般都会直接使用它\n1、isScrollable：是否可以滑动\n2、indicatorColor：指示器颜色，默认是高度为2的一条下划线\n3、indicatorWeight：指示器高度\n4、indicator：指示器\n5、indicatorSize：指示器长度，有两个可选值，一个tab的长度，一个是label长度',
+          true,
+          () {
+            launchUrlString(
+                'https://book.flutterchina.club/chapter6/tabview.html#_6-9-2-tabbar');
+          },
+        ),
+        Center(
+          child: ElevatedButton(
+            child: const Text('点击查看实例'),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) {
+                  return const TabBarViewUIPage();
+                }),
+              );
+            },
+          ),
+        ),
+        const Divider(
+          height: 50,
+        ),
+      ],
+    );
+  }
+}
+
+class TabBarViewUIPage extends StatefulWidget {
+  const TabBarViewUIPage({super.key});
+
+  @override
+  State<TabBarViewUIPage> createState() => _TabBarViewUIPageState();
+}
+
+class _TabBarViewUIPageState extends State<TabBarViewUIPage>
+    with SingleTickerProviderStateMixin {
+  late TabController _tabController;
+  List tabs = ["新闻", "清朝历史", "图片片"];
+
+  @override
+  void initState() {
+    super.initState();
+    _tabController = TabController(length: tabs.length, vsync: this);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('TabBarView'),
+        bottom: TabBar(
+          controller: _tabController,
+          unselectedLabelColor: Colors.white,
+          labelColor: Colors.red,
+          indicatorColor: Colors.black,
+          indicatorSize: TabBarIndicatorSize.label,
+          tabs: tabs.map(
+            (e) {
+              return Tab(
+                text: e,
+              );
+            },
+          ).toList(),
+        ),
+      ),
+      body: TabBarView(
+        controller: _tabController,
+        children: tabs.map(
+          (e) {
+            return KeepAliveWrapper(
+              child: Container(
+                alignment: Alignment.center,
+                child: Text(
+                  e,
+                  textScaleFactor: 5.0,
+                ),
+              ),
+            );
+          },
+        ).toList(),
+      ),
+    );
+  }
+}
+
+/**
+ * CustomScrollViewUIPage
+ */
+class CustomScrollViewUIPage extends StatelessWidget {
+  const CustomScrollViewUIPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Column(
+        children: [
+          dcListTitleAndSubTitle(
+            'CustomScrollView和 Slivers',
+            '具体介绍请移步\n下面点击查看几个应用示例',
+            true,
+            () => launchUrlString(
+              'https://book.flutterchina.club/chapter6/custom_scrollview.html#_6-10-1-customscrollview',
+            ),
+          ),
+          ElevatedButton(
+            onPressed: () => Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const CustomScrollViewDemo(),
+              ),
+            ),
+            child: const Text('应用示例'),
+          ),
+          const Divider(
+            height: 50.0,
+          ),
+          ElevatedButton(
+            onPressed: () => Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const SliverPersistentHeaderDemo(),
+              ),
+            ),
+            child: const Text('SliverPersistentHeader'),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+/**
+ * Demo
+ */
+class CustomScrollViewDemo extends StatefulWidget {
+  const CustomScrollViewDemo({super.key});
+
+  @override
+  State<CustomScrollViewDemo> createState() => _CustomScrollViewDemoState();
+}
+
+class _CustomScrollViewDemoState extends State<CustomScrollViewDemo> {
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      child: CustomScrollView(
+        slivers: <Widget>[
+          // AppBar，包含一个导航栏.
+          SliverAppBar(
+            pinned: true, // 滑动到顶端时会固定住
+            expandedHeight: 250.0,
+            flexibleSpace: FlexibleSpaceBar(
+              title: const Text('demo'),
+              background: Image.asset(
+                './assets/images/image2.jpeg',
+                fit: BoxFit.cover,
+              ),
+            ),
+          ),
+          SliverPadding(
+            padding: const EdgeInsets.all(18.0),
+            sliver: SliverGrid(
+              delegate: SliverChildBuilderDelegate(
+                (context, index) {
+                  //创建子widget
+                  return Container(
+                    alignment: Alignment.center,
+                    color: Colors.cyan[100 * (index % 9)],
+                    child: Text('Grid item $index'),
+                  );
+                },
+                childCount: 20,
+                findChildIndexCallback: (index) {
+                  Fluttertoast.showToast(msg: '点击了第${index}item');
+                },
+              ),
+              //Grid
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2, //Grid按两列显示
+                mainAxisSpacing: 10.0,
+                crossAxisSpacing: 10.0,
+                childAspectRatio: 4.0,
+              ),
+            ),
+          ),
+          SliverFixedExtentList(
+            delegate: SliverChildBuilderDelegate(
+              (context, index) {
+                //创建列表项
+                return Container(
+                  alignment: Alignment.center,
+                  color: Colors.lightBlue[100 * (index % 9)],
+                  child: Text('list item $index'),
+                );
+              },
+              childCount: 20,
+            ),
+            itemExtent: 50.0,
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+/**
+ * SliverPersistentHeaderDemo
+ */
+class SliverPersistentHeaderDemo extends StatelessWidget {
+  const SliverPersistentHeaderDemo({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      child: CustomScrollView(
+        slivers: [
+          buildSliverList(),
+          SliverPersistentHeader(
+            pinned: true,
+            delegate: SliverHeaderDelegate(
+              //有最大和最小高度
+              maxHeight: 80,
+              minHeight: 50,
+              child: buildHeader(1),
+            ),
+          ),
+          buildSliverList(),
+          SliverPersistentHeader(
+            pinned: true,
+            delegate: SliverHeaderDelegate.fixedHeight(
+              //固定高度
+              height: 50,
+              child: buildHeader(2),
+            ),
+          ),
+          buildSliverList(20),
+        ],
+      ),
+    );
+  }
+
+  // 构建固定高度的SliverList，count为列表项属相
+  Widget buildSliverList([int count = 5]) {
+    return SliverFixedExtentList(
+      itemExtent: 50,
+      delegate: SliverChildBuilderDelegate(
+        (context, index) {
+          return ListTile(title: Text('$index'));
+        },
+        childCount: count,
+      ),
+    );
+  }
+
+  // 构建 header
+  Widget buildHeader(int i) {
+    return Container(
+      color: Colors.lightBlue.shade200,
+      alignment: Alignment.centerLeft,
+      child: Text("PersistentHeader $i"),
+    );
+  }
+}
+
+typedef SliverHeaderBuilder = Widget Function(
+    BuildContext context, double shrinkOffset, bool overlapsContent);
+
+class SliverHeaderDelegate extends SliverPersistentHeaderDelegate {
+  // child 为 header
+  SliverHeaderDelegate({
+    required this.maxHeight,
+    this.minHeight = 0,
+    required Widget child,
+  })  : builder = ((a, b, c) => child),
+        assert(minHeight <= maxHeight && minHeight >= 0);
+  //最大和最小高度相同
+  SliverHeaderDelegate.fixedHeight({
+    required double height,
+    required Widget child,
+  })  : builder = ((a, b, c) => child),
+        maxHeight = height,
+        minHeight = height;
+
+  //需要自定义builder时使用
+  SliverHeaderDelegate.builder({
+    required this.maxHeight,
+    this.minHeight = 0,
+    required this.builder,
+  });
+
+  final double maxHeight;
+  final double minHeight;
+  final SliverHeaderBuilder builder;
+
+  @override
+  Widget build(
+    BuildContext context,
+    double shrinkOffset,
+    bool overlapsContent,
+  ) {
+    Widget child = builder(context, shrinkOffset, overlapsContent);
+    //测试代码：如果在调试模式，且子组件设置了key，则打印日志
+    assert(() {
+      if (child.key != null) {
+        print('${child.key}: shrink: $shrinkOffset，overlaps:$overlapsContent');
+      }
+      return true;
+    }());
+    // 让 header 尽可能充满限制的空间；宽度为 Viewport 宽度，
+    // 高度随着用户滑动在[minHeight,maxHeight]之间变化。
+    return SizedBox.expand(child: child);
+  }
+
+  @override
+  double get maxExtent => maxHeight;
+
+  @override
+  double get minExtent => minHeight;
+
+  @override
+  bool shouldRebuild(SliverHeaderDelegate old) {
+    return old.maxExtent != maxExtent || old.minExtent != minExtent;
+  }
+}
+
+/**
+ * Sliver 布局协议
+ */
+class SliverDemoPage extends StatelessWidget {
+  const SliverDemoPage({super.key});
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Column(
+        children: [
+          dcListTitleAndSubTitle(
+            'Sliver 布局协议',
+            '',
+            true,
+            () {
+              launchUrlString(
+                  'https://book.flutterchina.club/chapter6/sliver.html#_6-11-1-sliver-%E5%B8%83%E5%B1%80%E5%8D%8F%E8%AE%AE');
+            },
+          ),
+          const Divider(
+            height: 50.0,
+          ),
+          ElevatedButton(
+            onPressed: () {
+              launchUrlString(
+                  'https://book.flutterchina.club/chapter6/sliver.html#_6-11-2-%E8%87%AA%E5%AE%9A%E4%B9%89-sliver-%E4%B8%80-sliverflexibleheader');
+            },
+            child: const Text('SliverFlexibleHeader'),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+/**
+ * NestedScrollView
+ */
+class NestedScrollViewPage extends StatelessWidget {
+  const NestedScrollViewPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Column(
+        children: [
+          dcListTitleAndSubTitle(
+            'NestedScrollView',
+            '',
+            true,
+            () {
+              launchUrlString(
+                  'https://book.flutterchina.club/chapter6/nestedscrollview.html#_6-12-1-nestedscrollview');
+            },
+          ),
+          const Divider(
+            height: 30.0,
+          ),
+          ElevatedButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const NestedScrollViewDemo(),
+                ),
+              );
+            },
+            child: const Text('NestedScrollView'),
+          ),
+          dcListTitleAndSubTitle(
+            'SliverAppBar',
+            'collapsedHeight：收缩起来的高度\n2、expandedHeight：展开时的高度\n3、pinned：是否固定\n4、floating：是否漂浮\n5、snap：当漂浮时，此参数才有效\n6、forceElevated：导航栏下面是否一直显示阴影',
+            true,
+            () {
+              launchUrlString(
+                  'https://book.flutterchina.club/chapter6/nestedscrollview.html#_6-12-3-sliverappbar');
+            },
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+/**
+ * NestedScrollViewDemo
+ */
+class NestedScrollViewDemo extends StatelessWidget {
+  const NestedScrollViewDemo({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      child: NestedScrollView(
+        headerSliverBuilder: (context, innerBoxIsScrolled) {
+          // 返回一个 Sliver 数组给外部可滚动组件。
+          return <Widget>[
+            SliverAppBar(
+              title: const Text('嵌套ListView'),
+              pinned: true, // 固定在顶部
+              forceElevated: innerBoxIsScrolled,
+            ),
+            SliverFixedExtentList(
+              delegate: SliverChildBuilderDelegate(
+                (context, index) {
+                  //创建列表项
+                  return Container(
+                    alignment: Alignment.topLeft,
+                    color: Colors.lightBlue[100 * (index % 9)],
+                    child: Text('list item $index'),
+                  );
+                },
+                childCount: 13,
+              ),
+              itemExtent: 30.0,
+            ),
+          ];
+        },
+        body: ListView.builder(
+          padding: const EdgeInsets.all(8),
+          physics: const ClampingScrollPhysics(), //重要
+          itemCount: 20,
+          itemBuilder: (BuildContext context, int index) {
+            return SizedBox(
+              height: 50,
+              child: Center(child: Text('Item $index')),
+            );
+          },
+        ),
+      ),
     );
   }
 }

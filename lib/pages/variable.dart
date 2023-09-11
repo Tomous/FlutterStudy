@@ -183,8 +183,8 @@ List _generateItems = [
     'isExpanded': false,
     'contentList': [
       {
-        'title': '默认构造函数',
-        'page': const VariableDetailPage(title: '默认构造函数'),
+        'title': '默认构造函数GridView',
+        'page': const VariableDetailPage(title: '默认构造函数GridView'),
       },
       {
         'title': 'GridView.count',
@@ -240,10 +240,6 @@ List _generateItems = [
         'title': 'TabBar',
         'page': const VariableDetailPage(title: 'TabBar'),
       },
-      {
-        'title': '实例',
-        'page': const VariableDetailPage(title: '实例'),
-      },
     ],
   },
   {
@@ -287,17 +283,9 @@ List _generateItems = [
         'page': const VariableDetailPage(title: 'NestedScrollView'),
       },
       {
-        'title': 'NestedScrollView 原理',
-        'page': const VariableDetailPage(title: 'NestedScrollView 原理'),
-      },
-      {
         'title': 'SliverAppBar',
         'page': const VariableDetailPage(title: 'SliverAppBar'),
-      },
-      {
-        'title': '嵌套 TabBarView',
-        'page': const VariableDetailPage(title: '嵌套 TabBarView'),
-      },
+      }
     ],
   },
 ];
