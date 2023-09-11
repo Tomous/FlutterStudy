@@ -28,13 +28,12 @@ class _FunctionalityPageState extends State<FunctionalityPage> {
       'page': const FunctionalityDetailPage(title: '颜色和主题'),
     },
     {
-      'title': '按需rebuild（ValueListenableBuilder）',
+      'title': 'ValueListenableBuilder',
       'page': const FunctionalityDetailPage(title: 'ValueListenableBuilder'),
     },
     {
-      'title': '异步UI更新（FutureBuilder、StreamBuilder）',
-      'page':
-          const FunctionalityDetailPage(title: 'FutureBuilder、StreamBuilder'),
+      'title': '异步UI更新',
+      'page': const FunctionalityDetailPage(title: '异步UI更新'),
     },
     {
       'title': '对话框详解',
