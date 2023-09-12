@@ -76,7 +76,7 @@ List _generateItems = [
     'isExpanded': false,
     'contentList': [
       {
-        'title': 'Listener 组件',
+        'title': 'Listener组件',
         'page': const EventHandlingDetailPage(title: 'Listener'),
       },
       {
@@ -104,8 +104,8 @@ List _generateItems = [
     'isExpanded': false,
     'contentList': [
       {
-        'title': 'Flutter 事件处理流程',
-        'page': const EventHandlingDetailPage(title: 'Flutter 事件处理流程'),
+        'title': 'Flutter事件处理流程',
+        'page': const EventHandlingDetailPage(title: 'Flutter事件处理流程'),
       },
       {
         'title': '命中测试详解',
