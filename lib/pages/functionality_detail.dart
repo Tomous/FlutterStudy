@@ -688,11 +688,12 @@ class _AlertDialogDemoState extends State<AlertDialogDemo> {
           child: ElevatedButton(
             child: const Text('日历选择器2'),
             onPressed: () {
-              showCupertinoDialog(
+              showCupertinoModalPopup(
                 context: context,
                 builder: (context) {
-                  return SizedBox(
-                    height: 200.0,
+                  return Container(
+                    color: Colors.black45,
+                    height: 250.0,
                     child: CupertinoDatePicker(
                       mode: CupertinoDatePickerMode.dateAndTime,
                       minimumDate: DateTime.now(),

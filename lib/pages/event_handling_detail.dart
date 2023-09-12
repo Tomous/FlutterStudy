@@ -10,6 +10,16 @@ class EventHandlingDetailPage extends StatelessWidget {
       appBar: AppBar(
         title: Text(title),
       ),
+      body: _buildWidgetWithTitle(title),
     );
+  }
+}
+
+Widget _buildWidgetWithTitle(String title) {
+  switch (title) {
+    case 'value':
+      return Container();
+    default:
+      return Container();
   }
 }

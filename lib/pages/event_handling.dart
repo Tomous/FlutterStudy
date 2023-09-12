@@ -76,10 +76,6 @@ List _generateItems = [
     'isExpanded': false,
     'contentList': [
       {
-        'title': '命中测试简介',
-        'page': const EventHandlingDetailPage(title: '命中测试简介'),
-      },
-      {
         'title': 'Listener 组件',
         'page': const EventHandlingDetailPage(title: 'Listener'),
       },
