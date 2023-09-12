@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_study/goodHouseApp/pages/login.dart';
+import 'package:flutter_study/pages/animation.dart';
 import 'package:flutter_study/pages/base_ui.dart';
 import 'package:flutter_study/pages/container.dart';
 import 'package:flutter_study/pages/event_handling.dart';
@@ -7,9 +8,7 @@ import 'package:flutter_study/pages/functionality.dart';
 import 'package:flutter_study/pages/gridView_page.dart';
 import 'package:flutter_study/pages/layout_ui.dart';
 import 'package:flutter_study/pages/listView_page.dart';
-import 'package:flutter_study/pages/materialApp_page.dart';
 import 'package:flutter_study/pages/column_row_page.dart';
-import 'package:flutter_study/pages/un_material_app_page.dart';
 import 'package:flutter_study/pages/variable.dart';
 
 void main() {
@@ -38,11 +37,8 @@ class _MyAppState extends State<MyApp> {
     Text('可滚动组件', style: optionStyle),
     Text('功能型组件', style: optionStyle),
     Text('事件处理与通知', style: optionStyle),
-    Text('Material App', style: optionStyle),
-    Text('unMaterial App', style: optionStyle),
+    Text('Flutter动画简介', style: optionStyle),
     Text('Column and Row', style: optionStyle),
-    Text('ListView', style: optionStyle),
-    Text('GridView', style: optionStyle),
     Text('好客房APP', style: optionStyle),
   ];
   //对应的跳转页面
@@ -53,13 +49,8 @@ class _MyAppState extends State<MyApp> {
     VariablePage(title: '可滚动组件'),
     FunctionalityPage(title: '功能型组件'),
     EventHandlingPage(title: '事件处理与通知'),
-    MaterialAppPage(),
-    UnMaterialAppPage(),
+    AnimationPage(title: 'Flutter动画简介'),
     ColumnRowPage(title: 'Column and Row'),
-    ListViewPage(
-      title: 'ListView',
-    ),
-    GridViewPage(title: 'GridView'),
     LoginPage(),
   ];
 
