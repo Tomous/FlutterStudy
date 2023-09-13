@@ -40,6 +40,8 @@ dependencies:
   # flutter_inappwebview: ^5.7.2+3 #打开web页面
   url_launcher: 6.1.11 #加载url
   fluro: ^2.0.5 #路由
+  # gradient_circular_progress_indicator: 0.0.1 #圆形背景渐变进度条
+  flutter_watermark: ^1.0.2 #水印
 
 dev_dependencies:
   flutter_test:

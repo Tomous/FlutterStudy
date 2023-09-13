@@ -3,6 +3,7 @@ import 'package:flutter_study/goodHouseApp/pages/login.dart';
 import 'package:flutter_study/pages/animation.dart';
 import 'package:flutter_study/pages/base_ui.dart';
 import 'package:flutter_study/pages/container.dart';
+import 'package:flutter_study/pages/custom_widget.dart';
 import 'package:flutter_study/pages/event_handling.dart';
 import 'package:flutter_study/pages/functionality.dart';
 import 'package:flutter_study/pages/gridView_page.dart';
@@ -38,6 +39,7 @@ class _MyAppState extends State<MyApp> {
     Text('功能型组件', style: optionStyle),
     Text('事件处理与通知', style: optionStyle),
     Text('Flutter动画简介', style: optionStyle),
+    Text('自定义组件', style: optionStyle),
     Text('Column and Row', style: optionStyle),
     Text('好客房APP', style: optionStyle),
   ];
@@ -50,6 +52,7 @@ class _MyAppState extends State<MyApp> {
     FunctionalityPage(title: '功能型组件'),
     EventHandlingPage(title: '事件处理与通知'),
     AnimationPage(title: 'Flutter动画简介'),
+    CustomWidgetPage(title: '自定义组件'),
     ColumnRowPage(title: 'Column and Row'),
     LoginPage(),
   ];
