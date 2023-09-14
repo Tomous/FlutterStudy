@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+//DecoratedBox可以支持背景色渐变和圆角---InkWell在手指按下有涟漪效果
 class GradientButton extends StatelessWidget {
   // 渐变色数组
   final List<Color>? colors;

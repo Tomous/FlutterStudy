@@ -92,12 +92,12 @@ class RenderDoneObject extends RenderBox with RenderObjectAnimationMixin {
     //画 "勾"
     if (_progress < adjustProgress) {
       //第一个点到第二个点的连线做动画(第二个点不停的变)
-      Offset _secondOffset = Offset.lerp(
+      Offset secondOffset0 = Offset.lerp(
         firstOffset,
         secondOffset,
         _progress / adjustProgress,
       )!;
-      path.lineTo(_secondOffset.dx, _secondOffset.dy);
+      path.lineTo(secondOffset0.dx, secondOffset0.dy);
     } else {
       //链接第一个点和第二个点
       path.lineTo(secondOffset.dx, secondOffset.dy);
@@ -106,12 +106,12 @@ class RenderDoneObject extends RenderBox with RenderObjectAnimationMixin {
         rect.right - rect.width / 5,
         rect.top + rect.height / 3.5,
       );
-      Offset _lastOffset = Offset.lerp(
+      Offset lastOffset0 = Offset.lerp(
         secondOffset,
         lastOffset,
         (progress - adjustProgress) / (1 - adjustProgress),
       )!;
-      path.lineTo(_lastOffset.dx, _lastOffset.dy);
+      path.lineTo(lastOffset0.dx, lastOffset0.dy);
     }
     context.canvas.drawPath(path, paint..style = PaintingStyle.stroke);
   }
