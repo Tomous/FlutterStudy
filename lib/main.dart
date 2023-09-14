@@ -9,6 +9,8 @@ import 'package:flutter_study/pages/event_handling.dart';
 import 'package:flutter_study/pages/functionality.dart';
 import 'package:flutter_study/pages/layout_ui.dart';
 import 'package:flutter_study/pages/column_row_page.dart';
+import 'package:flutter_study/pages/material_app.dart';
+import 'package:flutter_study/pages/more_language.dart';
 import 'package:flutter_study/pages/variable.dart';
 
 void main() {
@@ -40,7 +42,9 @@ class _MyAppState extends State<MyApp> {
     Text('Flutter动画简介', style: optionStyle),
     Text('自定义组件', style: optionStyle),
     Text('文件操作与网络请求', style: optionStyle),
-    Text('Column and Row', style: optionStyle),
+    Text('国际化', style: optionStyle),
+    Text('Flutter核心原理', style: optionStyle),
+    Text('MaterialApp', style: optionStyle),
     Text('好客房APP', style: optionStyle),
   ];
   //对应的跳转页面
@@ -54,7 +58,9 @@ class _MyAppState extends State<MyApp> {
     AnimationPage(title: 'Flutter动画简介'),
     CustomWidgetPage(title: '自定义组件'),
     HttpClientPage(title: '文件操作与网络请求'),
-    ColumnRowPage(title: 'Column and Row'),
+    InternationalizationPage(title: '国际化'),
+    InternationalizationPage(title: 'Flutter核心原理'),
+    MaterialAppPage(),
     LoginPage(),
   ];
 

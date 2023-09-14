@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_study/common/common.dart';
+import 'package:flutter_study/pages/column_row_page.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
@@ -248,6 +249,20 @@ class RowAndColumnPage extends StatelessWidget {
               () => launchUrl(Uri.parse(
                   'https://book.flutterchina.club/chapter4/row_and_column.html#_4-3-4-%E7%89%B9%E6%AE%8A%E6%83%85%E5%86%B5')),
             ),
+            Center(
+              child: ElevatedButton(
+                child: const Text('点击查看更多属性'),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) =>
+                          const ColumnRowPage(title: 'Column and Row'),
+                    ),
+                  );
+                },
+              ),
+            )
           ],
         ),
       ),
