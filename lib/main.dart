@@ -45,7 +45,6 @@ class _MyAppState extends State<MyApp> {
     Text('国际化', style: optionStyle),
     Text('Flutter核心原理', style: optionStyle),
     Text('MaterialApp', style: optionStyle),
-    Text('好客房APP', style: optionStyle),
   ];
   //对应的跳转页面
   static const List<Widget> _pageList = <Widget>[
@@ -61,7 +60,6 @@ class _MyAppState extends State<MyApp> {
     InternationalizationPage(title: '国际化'),
     InternationalizationPage(title: 'Flutter核心原理'),
     MaterialAppPage(),
-    LoginPage(),
   ];
 
 //点击ListTile的时候把当前行号赋值给选中的行号
