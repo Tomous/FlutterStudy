@@ -1,0 +1,9 @@
+{
+  "user":"$githubUser", 
+  "token?":"", 
+  "theme":0,
+  "cache":"$githubCacheConfig", 
+  "lastLogin?":"", 
+  "locale?":"" 
+}
+

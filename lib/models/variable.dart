@@ -28,8 +28,7 @@ class Variable {
   late String report_time;
   late num worker_number;
   late num status;
-
-  factory Variable.fromJson(Map<String, dynamic> json) =>
-      _$VariableFromJson(json);
+  
+  factory Variable.fromJson(Map<String,dynamic> json) => _$VariableFromJson(json);
   Map<String, dynamic> toJson() => _$VariableToJson(this);
 }

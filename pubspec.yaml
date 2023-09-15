@@ -30,6 +30,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_localizations:
+    sdk: flutter
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -45,6 +47,7 @@ dependencies:
   dio: ^5.3.2 #Http请求
   json_model: ^1.0.0 #自动将Json数据转成dart类，使用方法看https://pub.dev/packages/json_model里面的介绍
   json_serializable: 6.6.2 #自动生成model
+  shared_preferences: ^2.2.1 #数据持久化
 
 dev_dependencies:
   flutter_test:

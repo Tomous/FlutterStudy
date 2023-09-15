@@ -78,9 +78,7 @@ Widget _buildWidgetWithTag(String title) {
   }
 }
 
-/**
- * Sliver
- */
+/// Sliver
 class SliverUIPage extends StatelessWidget {
   const SliverUIPage({super.key});
 
@@ -170,9 +168,8 @@ class SliverUIPage extends StatelessWidget {
   }
 }
 
-/**
- * ViewPort 
- * */
+/// ViewPort
+///
 class SingleChildScrollViewPage extends StatelessWidget {
   const SingleChildScrollViewPage({super.key});
 
@@ -237,9 +234,7 @@ class SingleChildScrollViewTestRoute extends StatelessWidget {
   }
 }
 
-/**
- * ListView
- */
+/// ListView
 class ListViewUIPage extends StatefulWidget {
   double contentOfset;
   ListViewUIPage({super.key, this.contentOfset = 0.0});
@@ -424,9 +419,8 @@ class FixedExtentListPage extends StatelessWidget {
   }
 }
 
-/**
- * 滚动监听及控制
- */
+// ignore: must_be_immutable,
+/// 滚动监听及控制
 class ScrollViewUIPage extends StatefulWidget {
   double scrollOfSet;
   ScrollViewUIPage({super.key, this.scrollOfSet = 0.0});
@@ -436,7 +430,7 @@ class ScrollViewUIPage extends StatefulWidget {
 }
 
 class _ScrollViewUIPageState extends State<ScrollViewUIPage> {
-  ScrollController _controller = ScrollController();
+  final ScrollController _controller = ScrollController();
   @override
   void initState() {
     super.initState();
@@ -573,7 +567,7 @@ class _ScrollViewPageState extends State<ScrollViewPage> {
     //监听滚动事件，打印滚动位置
     _controller.addListener(
       () {
-        print('滚动位置${_controller.offset}'); //打印滚动位置
+        debugPrint('滚动位置${_controller.offset}'); //打印滚动位置
         if (_controller.offset < 300 && showToTopButton) {
           setState(() {
             showToTopButton = false;
@@ -652,7 +646,7 @@ class _ScrollNotificationPageState extends State<ScrollNotificationPage> {
             setState(() {
               progress0 = "${(progress * 100).toInt()}%";
             });
-            print("BottomEdge:${notification.metrics.extentAfter}");
+            debugPrint("BottomEdge:${notification.metrics.extentAfter}");
             return false;
             //return true; //放开此行注释后，进度条将失效
           },
@@ -679,9 +673,7 @@ class _ScrollNotificationPageState extends State<ScrollNotificationPage> {
   }
 }
 
-/**
- * AnimatedList
- */
+/// AnimatedList
 class AnimatedListPage extends StatelessWidget {
   const AnimatedListPage({super.key});
 
@@ -771,7 +763,7 @@ class _AmimatedListDemoState extends State<AmimatedListDemo> {
                 data.add('${++counter}');
                 // 告诉列表项有新添加的列表项
                 globalKey.currentState!.insertItem(data.length - 1);
-                print('添加 $counter');
+                debugPrint('添加 $counter');
               },
             ),
           ),
@@ -804,7 +796,7 @@ class _AmimatedListDemoState extends State<AmimatedListDemo> {
           (context, animation) {
             // 删除过程执行的是反向动画，animation.value 会从1变为0
             var item = buildItem(context, index);
-            print('删除 ${data[index]}');
+            debugPrint('删除 ${data[index]}');
             data.removeAt(index);
             // 删除动画是一个合成动画：渐隐 + 收缩列表项
             return FadeTransition(
@@ -828,9 +820,7 @@ class _AmimatedListDemoState extends State<AmimatedListDemo> {
   }
 }
 
-/**
- * GridView
- */
+/// GridView
 class GridViewUIPage extends StatefulWidget {
   const GridViewUIPage({super.key});
 
@@ -1021,9 +1011,7 @@ class _GridViewBuilderPageState extends State<GridViewBuilderPage> {
   }
 }
 
-/**
- * PageView与页面缓存
- */
+/// PageView与页面缓存
 class PageViewUIPage extends StatefulWidget {
   const PageViewUIPage({super.key});
 
@@ -1089,9 +1077,7 @@ class _PageViewPageState extends State<PageViewPage> {
   }
 }
 
-/**
- * 可滚动组件子项缓存
- */
+/// 可滚动组件子项缓存
 class SliverPageCache extends StatelessWidget {
   const SliverPageCache({super.key});
   @override
@@ -1133,9 +1119,7 @@ class SliverPageCache extends StatelessWidget {
   }
 }
 
-/**
- * TabBarView
- */
+/// TabBarView
 class TabBarViewPage extends StatelessWidget {
   const TabBarViewPage({super.key});
   @override
@@ -1239,9 +1223,7 @@ class _TabBarViewUIPageState extends State<TabBarViewUIPage>
   }
 }
 
-/**
- * CustomScrollViewUIPage
- */
+/// CustomScrollViewUIPage
 class CustomScrollViewUIPage extends StatelessWidget {
   const CustomScrollViewUIPage({super.key});
 
@@ -1285,9 +1267,7 @@ class CustomScrollViewUIPage extends StatelessWidget {
   }
 }
 
-/**
- * Demo
- */
+/// Demo
 class CustomScrollViewDemo extends StatefulWidget {
   const CustomScrollViewDemo({super.key});
 
@@ -1328,6 +1308,7 @@ class _CustomScrollViewDemoState extends State<CustomScrollViewDemo> {
                 childCount: 20,
                 findChildIndexCallback: (index) {
                   Fluttertoast.showToast(msg: '点击了第${index}item');
+                  return null;
                 },
               ),
               //Grid
@@ -1359,9 +1340,7 @@ class _CustomScrollViewDemoState extends State<CustomScrollViewDemo> {
   }
 }
 
-/**
- * SliverPersistentHeaderDemo
- */
+/// SliverPersistentHeaderDemo
 class SliverPersistentHeaderDemo extends StatelessWidget {
   const SliverPersistentHeaderDemo({super.key});
 
@@ -1458,7 +1437,8 @@ class SliverHeaderDelegate extends SliverPersistentHeaderDelegate {
     //测试代码：如果在调试模式，且子组件设置了key，则打印日志
     assert(() {
       if (child.key != null) {
-        print('${child.key}: shrink: $shrinkOffset，overlaps:$overlapsContent');
+        debugPrint(
+            '${child.key}: shrink: $shrinkOffset，overlaps:$overlapsContent');
       }
       return true;
     }());
@@ -1474,14 +1454,13 @@ class SliverHeaderDelegate extends SliverPersistentHeaderDelegate {
   double get minExtent => minHeight;
 
   @override
-  bool shouldRebuild(SliverHeaderDelegate old) {
-    return old.maxExtent != maxExtent || old.minExtent != minExtent;
+  bool shouldRebuild(SliverHeaderDelegate oldDelegate) {
+    return oldDelegate.maxExtent != maxExtent ||
+        oldDelegate.minExtent != minExtent;
   }
 }
 
-/**
- * Sliver 布局协议
- */
+/// Sliver 布局协议
 class SliverDemoPage extends StatelessWidget {
   const SliverDemoPage({super.key});
   @override
@@ -1514,9 +1493,7 @@ class SliverDemoPage extends StatelessWidget {
   }
 }
 
-/**
- * NestedScrollView
- */
+/// NestedScrollView
 class NestedScrollViewPage extends StatelessWidget {
   const NestedScrollViewPage({super.key});
 
@@ -1563,9 +1540,7 @@ class NestedScrollViewPage extends StatelessWidget {
   }
 }
 
-/**
- * NestedScrollViewDemo
- */
+/// NestedScrollViewDemo
 class NestedScrollViewDemo extends StatelessWidget {
   const NestedScrollViewDemo({super.key});
 

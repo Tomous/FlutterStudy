@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_study/goodHouseApp/pages/login.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_study/gitHubApp/common/github_global.dart';
+import 'package:flutter_study/gitHubApp/demo_localization.dart';
 import 'package:flutter_study/packaging/http_client.dart';
 import 'package:flutter_study/pages/animation.dart';
 import 'package:flutter_study/pages/base_ui.dart';
@@ -8,13 +10,17 @@ import 'package:flutter_study/pages/custom_widget.dart';
 import 'package:flutter_study/pages/event_handling.dart';
 import 'package:flutter_study/pages/functionality.dart';
 import 'package:flutter_study/pages/layout_ui.dart';
-import 'package:flutter_study/pages/column_row_page.dart';
 import 'package:flutter_study/pages/material_app.dart';
 import 'package:flutter_study/pages/more_language.dart';
 import 'package:flutter_study/pages/variable.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 void main() {
-  runApp(const MyApp());
+  GithubGlobal.init().then((value) => runApp(const MyApp()));
+  GithubGlobal.init().then((value) {
+    Fluttertoast.showToast(msg: 'Github客户端登陆数据接口请求成功:$value');
+    runApp(const MyApp());
+  });
 }
 
 class MyApp extends StatefulWidget {
@@ -72,6 +78,18 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      localizationsDelegates: const [
+        // 本地化的代理类
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        // 注册我们的Delegate
+        DemoLocalizationsDelegate()
+      ],
+      supportedLocales: const [
+        Locale('en', 'US'), // 美国英语
+        Locale('zh', 'CN'), // 中文简体
+        //其他Locales
+      ],
       title: 'homedddd',
       home: Scaffold(
         appBar: AppBar(
