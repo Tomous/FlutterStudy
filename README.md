@@ -16,6 +16,7 @@ For help getting started with Flutter development, view the
 samples, guidance on mobile development, and a full API reference.
 # FlutterStudy
 学习flutter记录
+里面几乎囊括了Flutter所有的组件，有的组件具体的介绍可以点击蓝色标题字体进入网页版查看
 ![1](https://github.com/Tomous/FlutterStudy/blob/main/1.png)
 ![2](https://github.com/Tomous/FlutterStudy/blob/main/2.png)
 ![3](https://github.com/Tomous/FlutterStudy/blob/main/3.png)
