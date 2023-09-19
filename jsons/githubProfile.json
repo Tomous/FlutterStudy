@@ -2,7 +2,7 @@
   "user":"$githubUser", 
   "token?":"", 
   "theme":0,
-  "cache":"$githubCacheConfig", 
+  "cache?":"$githubCacheConfig", 
   "lastLogin?":"", 
   "locale?":"" 
 }
