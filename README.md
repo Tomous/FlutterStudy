@@ -18,4 +18,3 @@ samples, guidance on mobile development, and a full API reference.
 学习flutter记录
 里面几乎囊括了Flutter所有的组件，有的组件具体的介绍可以点击蓝色标题字体进入网页版查看
 ![效果图](https://github.com/Tomous/FlutterStudy/blob/main/screen.gif)
-![dsds](https://github.com/Tomous/FlutterStudy/blob/main/%E5%B1%8F%E5%B9%95%E5%BD%95%E5%88%B6.mov)
